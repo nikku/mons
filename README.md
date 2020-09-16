@@ -2,12 +2,21 @@
 
 A simple script that configures your screens, managed via `xrandr` in a sane manner.
 
-## Features
+## Usage
 
-Auto-detect screen configuration and apply it via `mons`.
+```
+Usage: mons [-o]
 
-Reset to default configuration via `mons -o`.
+Stay sane with your multi screen configuration.
 
+Options:
+  -o, --off          Switch to default configuration
+      --verbose      Output xrandr commands and results
+
+Examples:
+  mons
+  mons -o
+```
 
 ## License
 
