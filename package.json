@@ -1,0 +1,23 @@
+{
+  "name": "mons",
+  "version": "0.0.0",
+  "description": "A sane xrandr screen configuration wrapper",
+  "main": "mons.js",
+  "bin": {
+    "./mons.js"
+  },
+  "scripts": {
+    "test": "echo \"no tests\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikku/mons.git"
+  },
+  "keywords": [
+    "xrandr",
+    "screen",
+    "configuration"
+  ],
+  "author": "Nico Rehwaldt",
+  "license": "MIT"
+}
