@@ -15,6 +15,8 @@ const reset = process.argv.includes('-o') || process.argv.includes('--off') || p
 
 const verbose = process.argv.includes('--verbose');
 
+const version = process.argv.includes('--version') || process.argv.includes('-v');
+
 const help = process.argv.includes('--help');
 
 if (help) {
@@ -32,6 +34,11 @@ Examples:
   mons -o
 `);
 
+  process.exit(0);
+}
+
+if (version) {
+  console.log(require('./package.json').version);
   process.exit(0);
 }
 
