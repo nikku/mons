@@ -1,6 +1,6 @@
 {
   "name": "@nikku/mons",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A sane xrandr screen configuration wrapper",
   "main": "mons.js",
   "bin": {
