@@ -7,6 +7,8 @@ const {
   existsSync
 } = require('fs');
 
+const { homedir } = require('os');
+
 const {
   join: joinPath
 } = require('path');
@@ -55,10 +57,14 @@ if (!configs) {
 
 function readConfig() {
 
-  const locations = ['~', process.cwd() ];
+  const locations = [ process.cwd(), homedir() ];
 
   for (const location of locations) {
     const configPath = joinPath(location, '.monsrc');
+
+    if (verbose) {
+      console.debug(`D: checking config file ${configPath}`);
+    }
 
     if (!existsSync(configPath)) {
       continue;
