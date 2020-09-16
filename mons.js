@@ -2,33 +2,85 @@
 
 const { execSync } = require('child_process');
 
+const {
+  readFileSync,
+  existsSync
+} = require('fs');
+
+const {
+  join: joinPath
+} = require('path');
+
 const reset = process.argv.includes('-o') || process.argv.includes('--off') || process.argv.includes('--reset');
 
 const verbose = process.argv.includes('--verbose');
 
 const help = process.argv.includes('--help');
 
+if (help) {
+  console.log(`
+Usage: mons [-o]
+
+Stay sane with your multi screen configuration.
+
+Options:
+  -o, --off          Switch to default configuration
+      --verbose      Output xrandr commands and results
+
+Examples:
+  mons
+  mons -o
+`);
+
+  process.exit(0);
+}
+
 /**
  * Screen configurations, will be matched from last to first with
  * first screen being the default configuration that is used with -o
  */
-const configs = [
-  [ { monitor: 'eDP-1', primary: true } ],
-  [ { monitor: 'DP-2-1', primary: true, scale: '1.54x1.54' }, { monitor: 'eDP-1', leftOf: 'DP-2-1' } ],
-  [ { monitor: 'DP-2-2', primary: true, scale: '1.54x1.54' }, { monitor: 'DP-2-3', rightOf: 'DP-2-2' } ]
-];
+const configs = readConfig();
 
+if (!configs) {
+  console.error('E: no .monsrc configuration found');
+  process.exit(1);
+}
+
+function readConfig() {
+
+  const locations = ['~', process.cwd() ];
+
+  for (const location of locations) {
+    const configPath = joinPath(location, '.monsrc');
+
+    if (!existsSync(configPath)) {
+      continue;
+    }
+
+    try {
+      const config = JSON.parse(readFileSync(configPath, 'utf8'));
+
+      if (verbose) {
+        console.debug(`D: using config ${configPath}`);
+      }
+
+      return config;
+    } catch (err) {
+      console.error(`E: could not read config file ${configPath}: ${err.message}`);
+    }
+  }
+}
 
 function exec(cmd) {
 
   if (verbose) {
-    console.log('X:', cmd);
+    console.debug('X:', cmd);
   }
 
   const result = execSync(cmd).toString('utf8');
 
   if (verbose) {
-    console.log('Y:', result);
+    console.debug('Y:', result);
   }
 
   return result;
@@ -78,24 +130,6 @@ function applyConfig(config, monitors) {
   ]).flat().join(' ');
 
   exec(`xrandr ${switchOf} ${enable}`.replace(/\s+/g, ' '));
-}
-
-if (help) {
-  console.log(`
-Usage: mons [-o]
-
-Stay sane with your multi screen configuration.
-
-Options:
-  -o, --off          Switch to default configuration
-      --verbose      Output xrandr commands and results
-
-Examples:
-  mons
-  mons -o
-`);
-
-  process.exit(0);
 }
 
 const activeMonitors = getActiveMonitors();
