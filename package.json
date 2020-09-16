@@ -1,10 +1,10 @@
 {
-  "name": "mons",
+  "name": "@nikku/mons",
   "version": "0.0.0",
   "description": "A sane xrandr screen configuration wrapper",
   "main": "mons.js",
   "bin": {
-    "./mons.js"
+    "mons": "./mons.js"
   },
   "scripts": {
     "test": "echo \"no tests\""
