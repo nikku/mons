@@ -2,6 +2,13 @@
 
 A simple script that configures your screens, managed via `xrandr` in a sane manner.
 
+
+## Installation
+
+```
+npm install -g @nikku/mons
+```
+
 ## Usage
 
 ```
