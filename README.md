@@ -1,6 +1,6 @@
 # mons
 
-A simple script that configures your screens, managed via `xrandr` in a sane manner.
+A simple script that configures your screens, managed via `xrandr`, in a sane manner.
 
 
 ## Installation
