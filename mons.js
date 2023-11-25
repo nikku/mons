@@ -134,8 +134,8 @@ function applyConfig(config, monitors) {
   const enable = config.map(c => [
     `--output ${c.monitor}`,
     c.primary ? '--primary' : '',
+    c.scale ? `--scale ${c.scale}` : '--scale 0.5',
     '--auto',
-    c.scale ? `--scale ${c.scale}` : '--scale 1',
     c.leftOf ? `--left-of ${c.leftOf}` : '',
     c.rightOf ? `--right-of ${c.rightOf}` : '',
     c.above ? `--above ${c.above}` : '',
@@ -143,6 +143,22 @@ function applyConfig(config, monitors) {
   ]).flat().join(' ');
 
   exec(`xrandr ${switchOf} ${enable}`.replace(/\s+/g, ' '));
+
+  if (config.some(c => !c.scale)) {
+
+    const enable = config.map(c => [
+      `--output ${c.monitor}`,
+      c.primary ? '--primary' : '',
+      c.scale ? `--scale ${c.scale}` : '--scale 1',
+      '--auto',
+      c.leftOf ? `--left-of ${c.leftOf}` : '',
+      c.rightOf ? `--right-of ${c.rightOf}` : '',
+      c.above ? `--above ${c.above}` : '',
+      c.below ? `--below ${c.below}` : ''
+    ]).flat().join(' ');
+
+    exec(`xrandr ${enable}`.replace(/\s+/g, ' '));
+  }
 }
 
 const activeMonitors = getActiveMonitors();
