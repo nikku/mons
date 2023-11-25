@@ -9,3 +9,7 @@ _**Note:** Yet to be released changes appear here._
 ## 0.1.0
 
 * `FIX`: reset `scale` unless specified
+
+## ...
+
+Check `git log` for prior releases.
