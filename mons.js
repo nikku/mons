@@ -135,10 +135,10 @@ function applyConfig(config, monitors) {
     `--output ${c.monitor}`,
     c.primary ? '--primary' : '',
     '--auto',
-    c.scale ? `--scale ${c.scale}` : '',
+    c.scale ? `--scale ${c.scale}` : '--scale 1',
     c.leftOf ? `--left-of ${c.leftOf}` : '',
     c.rightOf ? `--right-of ${c.rightOf}` : '',
-    c.above ? `--above ${c.above}` : '',,
+    c.above ? `--above ${c.above}` : '',
     c.below ? `--below ${c.below}` : ''
   ]).flat().join(' ');
 
